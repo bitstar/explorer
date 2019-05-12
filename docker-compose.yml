@@ -1,0 +1,49 @@
+version: '2'
+services:
+  mongo:
+    image: mongo
+    hostname: mongo
+    networks: 
+      - internal
+    expose:
+      - 27017
+    restart: always
+    volumes:
+      - mongo:/data/db
+  bitstarcoin:
+    image: bitstarcoin/linux-node
+    hostname: bitstarcoin
+    restart: always
+    networks:
+      - bridge
+      - internal
+    ports:
+      - 19534:19534
+    expose:
+      - 59332
+    volumes:
+      - bitstarcoin:/home/bitstarcoin/
+    command: ["/home/bitstarcoin/bitstard", "-txindex=1"]
+  explorer:
+    image: bitstarcoin/explorer
+    restart: unless-stopped
+    networks:
+      - bridge
+      - internal
+    ports:
+      - 3001:3001
+    volumes:
+      - explorer:/home/iquidus
+    depends_on:
+      - mongo
+      - bitstarcoin
+volumes:
+  mongo:
+    name: mongo
+    driver: local
+  bitstarcoin:
+    name: bitstarcoin
+    driver: local
+  explorer:
+    name: explorer
+    driver: local
