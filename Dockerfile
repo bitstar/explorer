@@ -1,6 +1,6 @@
 FROM node:11.15.0-alpine
 
-WORKDIR /home/iquidus
+WORKDIR /home/iquidus/explorer
 
 RUN apk --no-cache --virtual builddeps add git python py-pip make gcc g++ krb5-dev
 
