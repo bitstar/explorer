@@ -9,7 +9,7 @@ RUN adduser -s /bin/ash -S -u 1001 iquidus && \
     git clone https://github.com/bitstar/explorer.git explorer && \
     cd explorer && \
     npm install --production && \
-    chown -R iquidus /explorer
+    chown -R iquidus /home/iquidus/explorer
     
 USER iquidus
 
